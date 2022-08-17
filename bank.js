@@ -3,8 +3,10 @@
 document.getElementById('deposit-btn').addEventListener('click',function(){
 
     const dipositInput = inputValue('deposit');
-    console.log(dipositInput);
-
+if(Number.isNaN(dipositInput)){
+    alert("something worng");
+}else{
+    console.log(dipositInput,typeof dipositInput);
     if(dipositInput < 0){
         alert('Somthing worng');
         return;
@@ -20,25 +22,32 @@ document.getElementById('deposit-btn').addEventListener('click',function(){
     const balance = setHtmlInnerText('totalbalace', totalMoney);
     console.log(diposit, balance);
 
+}
+
+
 });
 
 // Action withdrow btn
 document.getElementById('withdrow-btn').addEventListener('click', function(){
 
     const withdrowInput = inputValue('withdrow-input');
-    const getMoney = setTotalMoney('totalbalace');
-    if(withdrowInput < 0){
-        alert("Something Worng");
-        return;
-    }else if(withdrowInput > getMoney){
-        alert('Apnar eto taka nai');
-        return;
+    if(Number.isNaN(withdrowInput)){
+        alert('Samthing worng');
+    }else{
+        const getMoney = setTotalMoney('totalbalace');
+        if(withdrowInput < 0){
+            alert("Something Worng");
+            return;
+        }else if(withdrowInput > getMoney){
+            alert('Apnar eto taka nai');
+            return;
+        }
+    
+        const Dipositid     = htmlElementValue('withdrowSet'); 
+        const SubtractionDeposit = Dipositid + withdrowInput;
+        setHtmlInnerText('withdrowSet', SubtractionDeposit);
+    
+        const totalMoney = getMoney - withdrowInput;
+        setHtmlInnerText('totalbalace', totalMoney);
     }
-
-    const Dipositid     = htmlElementValue('withdrowSet'); 
-    const SubtractionDeposit = Dipositid + withdrowInput;
-    setHtmlInnerText('withdrowSet', SubtractionDeposit);
-
-    const totalMoney = getMoney - withdrowInput;
-    setHtmlInnerText('totalbalace', totalMoney);
 });
